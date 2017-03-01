@@ -2,13 +2,14 @@
 <html ng-app="todoApp">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="stylesheet" href="styles.css">
     <title>Todo App</title>
   </head>
   <body ng-controller="TodoController as ctrl">
-    <h1>Welcome!</h1>
-
-    <!-- html can go here -->
+	
+	<button id="filter-button">filter</button>
+	
+	<ul id="list"></ul>
 
     <script src="/static/bundle.js"></script>
   </body>
