@@ -83,4 +83,7 @@ Generalizations:
 	* Like React, knowing what needs to be updated in the DOM and what will be the same as in the last
 		render would be nice, but I guess that's why we have React, right??
 
+COMMENTS
+Part 2 of the Activities was way beyond what I could tackle on my own in just three days. Does this 
+mean I have gaping knowledge gap and I will be behind the curve next class?
 */
