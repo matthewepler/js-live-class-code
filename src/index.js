@@ -4,29 +4,78 @@ let state = {
     { title: 'Second todo', complete: true },
     { title: 'Third todo', complete: true },
   ],
+  filtered: false
 };
 
-document.onload = init();
+if (document.readyState !== 'loading') {
+  init();
+} else {
+  document.addEventListener( 'DOMContentLoaded', init() );
+}
 
 function init() {
 	const listNode = document.getElementById('list');
+  const inputForm = document.getElementById('input-form');
+  const inputBox = document.getElementById('input-box');
+  const submitButton = document.getElementById('submit-button');
 
-	const filterButton = document.getElementById('filter-button')
+  inputForm.addEventListener( 'submit', (event) => {
+    event.preventDefault();
+    createNewTodo(inputBox.value);
+  })
+
+	const filterButton = document.getElementById('filter-button');
 	filterButton.addEventListener('click', (event) => {
-		const items = document.querySelectorAll('#list li.todo--complete');
-		items.forEach( item => item.classList.toggle('hide') );
-	})
+    state.filtered = !state.filtered;
+    state.filtered ?
+      this.textContent = "Show Completed" :
+      this.textContent = "Hide Completed";
+    const items = document.querySelectorAll('#list li.todo--complete');
+	  items.forEach( item => item.classList.toggle('hide') );
+  })
 
-	state.todos.forEach( item => addTodoNode(item) )
+  function createNewTodo ( title ) {
+    state.todos.push({
+      title,
+      complete: false 
+    })
+    renderTheUi( state.todos );
+  }
 
-	function addTodoNode ({title, complete}) {
-		let item = document.createElement('li');
-		item.textContent = title;
-		if (complete === true) item.classList.add('todo--complete');
-		item.addEventListener('click', event => event.target.classList.toggle('todo--complete') );
-		listNode.appendChild(item);
-	};
+  function renderTheUi ( todos ) {
+    clearList();
+    todos.forEach( item => createNewNode( item ) );
+  }
+
+  function clearList () {
+    while (listNode.firstChild) {
+        listNode.removeChild(listNode.firstChild);
+    }
+  }
+
+  function createNewNode ( todo ) {
+    const newTodo = document.createElement( 'li' );
+    newTodo.textContent = todo.title;
+    if (todo.complete === true) newTodo.classList.add('todo--complete');
+    newTodo.addEventListener( 'click', event => {
+      changeCompleteValue(event.target) 
+    })
+    listNode.appendChild(newTodo);
+  }
+
+  function changeCompleteValue ( node ) {
+    state.todos.forEach( (element, index, array) => {
+      if ( element.title === node.textContent ) {
+        array[index].complete = !array[index].complete;
+      }
+    })
+    renderTheUi( state.todos );
+  }
+  
+  renderTheUi( state.todos );
 }
+
+
 
 
 

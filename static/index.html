@@ -7,7 +7,13 @@
   </head>
   <body ng-controller="TodoController as ctrl">
 	
-	<button id="filter-button">filter</button>
+  <form id="input-form">
+    <label for="input-box">Add Todo:</label>
+    <input id="input-box" type="text">
+    <button type="submit" id="submit-button">Add</button>
+  </form>
+
+	<button id="filter-button">Hide Completed</button>
 	
 	<ul id="list"></ul>
 
